@@ -11,53 +11,34 @@ function getComputerChoice() {
         return "paper";
     }
 
-    return "scissors"
+    return "scissors";
 }
 
 function getHumanChoice() {
     let choice = prompt("Hey Enter your choice : ");
+    if (choice == null || (choice != "rock" && choice != "paper" && choice != "scissors")) {
+        getHumanChoice();
+    }
+
     return choice.toLowerCase();
 }
 
 function playRound(humanChoice, computerChoice) {
     if (humanChoice == computerChoice) {
-
         console.log("round is tie!");
         return;
     }
 
-    if (humanChoice == "rock") {
+    if ((humanChoice == "rock" && computerChoice == "scissors") ||
+        (humanChoice == "paper" && computerChoice == "rock") ||
+        (humanChoice == "scissors" && computerChoice == "paper")) {
 
-        if (computerChoice == "scissors") {
-            console.log(`You win! ${humanChoice} beats ${computerChoice}`);
-            return true;
-        }
-        else {
-            console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
-            return false;
-        }
-    }
-    else if (humanChoice == "paper") {
-
-        if (computerChoice == "rock") {
-            console.log(`You win! ${humanChoice} beats ${computerChoice}`);
-            return true;
-        }
-        else {
-            console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
-            return false;
-        }
+        console.log(`You win! ${humanChoice} beats ${computerChoice}`);
+        return true;
     }
     else {
-
-        if (computerChoice == "paper") {
-            console.log(`You win! ${humanChoice} beats ${computerChoice}`);
-            return true;
-        }
-        else {
-            console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
-            return false;
-        }
+        console.log(`You lose! ${computerChoice} beats ${humanChoice}`);
+        return false;
     }
 }
 
@@ -72,11 +53,11 @@ function playGame() {
 
         const isHumanWinner = playRound(humanChoice, computerChoice);
 
-        if(isHumanWinner == undefined) {
+        if (isHumanWinner == undefined) {
             continue;
         }
 
-        if(isHumanWinner) {
+        if (isHumanWinner) {
             humanScore++;
         }
         else {
@@ -84,10 +65,10 @@ function playGame() {
         }
     }
 
-    if(humanScore == computerScore) {
+    if (humanScore == computerScore) {
         console.log("Match tied!");
     }
-    else if(humanScore > computerScore) {
+    else if (humanScore > computerScore) {
         console.log("You winner!")
     }
     else {
